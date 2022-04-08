@@ -1,6 +1,6 @@
 import { defineConfig } from 'dumi';
 
-const publicPath = process.env.NODE_ENV === 'production' ? '/generata-test-data/' : '/';
+const publicPath = process.env.NODE_ENV === 'production' ? '/generata-test-data/site/' : '/';
 const prodConfig: any = {};
 
 if (process.env.NODE_ENV === 'production') {

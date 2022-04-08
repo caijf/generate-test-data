@@ -11,6 +11,8 @@ import {
   Select,
   Radio,
   Empty,
+  RowProps,
+  SelectProps,
 } from 'antd';
 import { BizForm, BizFormItemSelect } from 'antd-more';
 import { formatBankCard } from 'util-helpers';
@@ -46,7 +48,7 @@ const colspan = {
   xl: 12,
 };
 
-const gutter = [
+const gutter: RowProps['gutter'] = [
   {
     xs: 8,
     sm: 24,
@@ -59,14 +61,14 @@ const gutter = [
 
 function Demo() {
   const [form] = BizForm.useForm();
-  const [searchValues, setSearchValues] = React.useState<Record<string, any>>({
+  const [searchValues, setSearchValues] = React.useState<Record<string, unknown>>({
     bankCode: 'ICBC',
     cardType: CardType.DC,
   });
 
   const [cardList, setCardList] = React.useState<typeof cards>([]);
   const [currentCard, setCurrentCard] = React.useState<typeof cards[0]>();
-  const [cardOptions, setCardOptions] = React.useState<Record<string, any>[]>([]);
+  const [cardOptions, setCardOptions] = React.useState<Record<string, unknown>[]>([]);
   const [cardNo, setCardNo] = React.useState('');
   const [cardFormat, setCardFormat] = React.useState(CardFormatOptions[1].value);
   const [cardNoResult, setCardNoResult] = React.useState('');
@@ -79,7 +81,8 @@ function Demo() {
           item.bankCode === searchValues.bankCode && item.cardType === searchValues.cardType,
       ),
     );
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form]);
 
   React.useEffect(() => {
     const searchCards = cards.filter(
@@ -107,7 +110,7 @@ function Demo() {
 
   React.useEffect(() => {
     handleRefreshCardOptions();
-  }, [currentCard]);
+  }, [currentCard, handleRefreshCardOptions]);
 
   React.useEffect(() => {
     if (currentCard) {
@@ -133,7 +136,7 @@ function Demo() {
           <BizFormItemSelect
             name="bankCode"
             label="银行"
-            options={banks as any}
+            options={banks as unknown as SelectProps['options']}
             selectProps={{
               showSearch: true,
               fieldNames: { label: 'name', value: 'code' },

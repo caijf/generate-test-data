@@ -23,7 +23,7 @@ jobs:
         run: yarn install
       - name: Build docs
         run: yarn build
-      - name: Deploy latest docs
+      - name: Deploy docs
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN_WORKFLOW }}

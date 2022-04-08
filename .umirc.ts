@@ -1,7 +1,6 @@
 import { defineConfig } from 'dumi';
 
-const publicPath =
-  process.env.NODE_ENV === 'production' ? 'https://caijf.github.io/generata-test-data/' : '/';
+const publicPath = process.env.NODE_ENV === 'production' ? '/generata-test-data/' : '/';
 const prodConfig: any = {};
 
 if (process.env.NODE_ENV === 'production') {
@@ -43,6 +42,7 @@ export default defineConfig({
   history: {
     type: 'hash',
   },
+  hash: true,
   publicPath,
   favicon: 'https://www.caijinfeng.com/favicon.ico',
   logo: 'https://www.caijinfeng.com/logo.png',

@@ -1,33 +1,9 @@
 # generate-test-data
 
-## Getting Started
+<mark>本项目所生成的数据仅用于测试！！！</mark>
 
-Install dependencies,
+仅用于生成测试数据。
 
-```bash
-$ npm i
-```
+## 索引
 
-Start the dev server,
-
-```bash
-$ npm start
-```
-
-Build documentation,
-
-```bash
-$ npm run docs:build
-```
-
-Run test,
-
-```bash
-$ npm test
-```
-
-Build library via `father-build`,
-
-```bash
-$ npm run build
-```
+- [生成银行卡](https://caijf.github.io/generate-test-data/index.html#/bank-card) - 适用于银行卡 OCR 测试场景。

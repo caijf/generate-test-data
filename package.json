@@ -16,8 +16,6 @@
     "lint-staged": "lint-staged",
     "commit": "cz"
   },
-  "module": "es/index.js",
-  "typings": "es/index.d.ts",
   "gitHooks": {
     "pre-commit": "lint-staged",
     "commit-msg": "npx --no -- commitlint --edit \"$1\""

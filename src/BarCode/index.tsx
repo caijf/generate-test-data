@@ -12,6 +12,7 @@ import {
   BizFormItemSwitch,
   BizFormItemInput,
 } from 'antd-more';
+import { useThrottleFn } from 'rc-hooks';
 import Horizontal from '../Layout/HorizontalLayout';
 import Barcode from './Barcode';
 
@@ -197,12 +198,13 @@ const defaultValues = {
 function Demo() {
   const [form] = BizForm.useForm();
   const [value, setValue] = React.useState<Record<string, any>>(defaultValues);
+  const throttleUpdateValue = useThrottleFn(setValue, 300);
 
   return (
     <BizForm
       form={form}
       submitter={false}
-      onValuesChange={(_, values) => setValue(values)}
+      onValuesChange={(_, values) => throttleUpdateValue.run(values)}
       initialValues={defaultValues}
     >
       <Horizontal

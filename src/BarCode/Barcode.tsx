@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react';
-import { useThrottleFn } from 'rc-hooks';
 import JsBarcode from 'jsbarcode';
 
 const arrCODE128 = ['CODE128', 'CODE128A', 'CODE128B', 'CODE128C'];
@@ -18,9 +18,11 @@ type BarcodeProps = Omit<
 
 const Barcode: React.FC<BarcodeProps> = ({ type = 'canvas', value, ...restProps }) => {
   const elRef = React.useRef<HTMLElement>(null);
+  const [error, setError] = React.useState(null);
 
-  const { run, cancel } = useThrottleFn(() => {
+  const run = () => {
     if (elRef.current) {
+      console.log('run');
       const realOptions = restProps || {};
       const realText = value || undefined;
 
@@ -38,26 +40,32 @@ const Barcode: React.FC<BarcodeProps> = ({ type = 'canvas', value, ...restProps 
         delete realOptions.lastChar;
       }
 
-      JsBarcode(elRef.current, realText as string, realOptions);
+      try {
+        JsBarcode(elRef.current, realText as string, realOptions);
+        setError(null);
+      } catch (err: any) {
+        setError(err);
+      }
     }
-  }, 300);
+  };
 
   React.useEffect(() => {
     run();
   });
 
-  React.useEffect(() => {
-    return () => {
-      cancel();
-    };
-  }, [cancel]);
-
-  return value
-    ? React.createElement(type, {
-        ref: elRef,
-        key: type,
-      })
-    : null;
+  return (
+    <>
+      <div style={{ display: error ? 'none' : 'block' }}>
+        {value
+          ? React.createElement(type, {
+              ref: elRef,
+              key: type,
+            })
+          : null}
+      </div>
+      {error}
+    </>
+  );
 };
 
 export default Barcode;

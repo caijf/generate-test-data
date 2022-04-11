@@ -52,10 +52,12 @@ const Barcode: React.FC<BarcodeProps> = ({ type = 'canvas', value, ...restProps 
     };
   }, [cancel]);
 
-  return React.createElement(type, {
-    ref: elRef,
-    key: type,
-  });
+  return value
+    ? React.createElement(type, {
+        ref: elRef,
+        key: type,
+      })
+    : null;
 };
 
 export default Barcode;

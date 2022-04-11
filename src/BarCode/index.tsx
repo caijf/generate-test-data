@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import * as React from 'react';
-import { Row, Col, Divider, Collapse } from 'antd';
+import { Row, Col, Divider, Collapse, Affix } from 'antd';
 import {
   BizForm,
   BizFormItemColor,
@@ -12,7 +12,7 @@ import {
   BizFormItemSwitch,
   BizFormItemInput,
 } from 'antd-more';
-import Horizontal, { gutter } from '../Layout/HorizontalLayout';
+import Horizontal from '../Layout/HorizontalLayout';
 import Barcode from './Barcode';
 
 const { Panel } = Collapse;
@@ -181,6 +181,7 @@ const defaultValues = {
     width: 2,
     height: 100,
     displayValue: true,
+    margin: 10,
     font: 'monospace',
     fontSize: 20,
     textAlign: 'center',
@@ -198,154 +199,143 @@ function Demo() {
   const [value, setValue] = React.useState<Record<string, any>>(defaultValues);
 
   return (
-    <Row gutter={gutter}>
-      <Col span={24}>
-        <BizForm
-          form={form}
-          submitter={false}
-          onValuesChange={(_, values) => setValue(values)}
-          initialValues={defaultValues}
-        >
-          <Horizontal
-            leftTitle="基本信息"
-            leftContent={<BizFormItemTextArea name="text" label="条形码内容" />}
-            rightTitle="配置项"
-            rightContent={
-              <>
+    <BizForm
+      form={form}
+      submitter={false}
+      onValuesChange={(_, values) => setValue(values)}
+      initialValues={defaultValues}
+    >
+      <Horizontal
+        leftTitle="基本信息"
+        leftContent={
+          <>
+            <BizFormItemTextArea name="text" label="条形码内容" />
+            <Divider orientation="left">配置项</Divider>
+            <Row>
+              <Col span={12}>
+                <BizFormItemSelect
+                  name={['options', 'format']}
+                  label="格式"
+                  options={formatOptions}
+                />
+              </Col>
+              <Col span={12}>
+                <BizFormItemSelect name="element" label="渲染元素" options={elementOptions} />
+              </Col>
+              <Col span={12}>
+                <BizFormItemColor name={['options', 'lineColor']} label="线条颜色" />
+              </Col>
+              <Col span={12}>
+                <BizFormItemColor name={['options', 'background']} label="背景颜色" />
+              </Col>
+              <Col span={12}>
+                <BizFormItemNumber name={['options', 'width']} label="线条宽" />
+              </Col>
+              <Col span={12}>
+                <BizFormItemNumber
+                  name={['options', 'height']}
+                  label="线条高"
+                  inputProps={{ min: 0 }}
+                />
+              </Col>
+              <Col span={12}>
+                <BizFormItemNumber
+                  name={['options', 'margin']}
+                  label="外边留白"
+                  inputProps={{ min: 0 }}
+                />
+              </Col>
+              <Col span={12}>
+                <BizFormItemSwitch name={['options', 'displayValue']} label="显示文本" />
+              </Col>
+            </Row>
+            {/* @ts-ignore */}
+            <Collapse ghost>
+              {/* @ts-ignore */}
+              <Panel header={<a>更多配置</a>} key="1" forceRender>
                 <Row>
                   <Col span={12}>
-                    <BizFormItemColor
-                      name={['options', 'lineColor']}
-                      label="线条颜色"
+                    <BizFormItemSelect
+                      name={['options', 'font']}
+                      label="文本字体"
+                      options={fontOptions}
+                    />
+                  </Col>
+                  <Col span={12}>
+                    <BizFormItemNumber
+                      name={['options', 'fontSize']}
+                      label="文字大小"
+                      inputProps={{ min: 0 }}
+                    />
+                  </Col>
+                  <Col span={12}>
+                    <BizFormItemSelect
+                      name={['options', 'fontOptions']}
+                      label="文字粗细"
+                      options={fontOptionsOptions}
+                    />
+                  </Col>
+                  <Col span={12}>
+                    <BizFormItemSelect
+                      name={['options', 'textAlign']}
+                      label="文本对齐"
+                      options={textAlignOptions}
+                    />
+                  </Col>
+                  <Col span={12}>
+                    <BizFormItemSelect
+                      name={['options', 'textPosition']}
+                      label="文本位置"
+                      options={textPositionOptions}
                       style={{ marginBottom: 0 }}
                     />
                   </Col>
                   <Col span={12}>
-                    <BizFormItemColor
-                      name={['options', 'background']}
-                      label="背景颜色"
+                    <BizFormItemNumber
+                      name={['options', 'textMargin']}
+                      label="文本间距"
                       style={{ marginBottom: 0 }}
                     />
                   </Col>
                 </Row>
-                {/* @ts-ignore */}
-                <Collapse ghost>
-                  {/* @ts-ignore */}
-                  <Panel header={<a>更多配置</a>} key="1" forceRender>
-                    <Row>
-                      <Col span={12}>
-                        <BizFormItemNumber
-                          name={['options', 'width']}
-                          label="线条宽"
-                          inputProps={{ min: 0 }}
-                        />
-                      </Col>
-                      <Col span={12}>
-                        <BizFormItemNumber
-                          name={['options', 'height']}
-                          label="线条高"
-                          inputProps={{ min: 0 }}
-                        />
-                      </Col>
-                      <Col span={12}>
-                        <BizFormItemSelect
-                          name={['options', 'format']}
-                          label="格式"
-                          options={formatOptions}
-                        />
-                      </Col>
-                      <Col span={12}>
-                        <BizFormItemSelect
-                          name="element"
-                          label="渲染元素"
-                          options={elementOptions}
-                        />
-                      </Col>
-                      <Col span={24}>
-                        <BizFormItemSwitch name={['options', 'displayValue']} label="显示文本" />
-                      </Col>
-                      <Col span={12}>
-                        <BizFormItemSelect
-                          name={['options', 'font']}
-                          label="文本字体"
-                          options={fontOptions}
-                        />
-                      </Col>
-                      <Col span={12}>
-                        <BizFormItemNumber
-                          name={['options', 'fontSize']}
-                          label="文字大小"
-                          inputProps={{ min: 0 }}
-                        />
-                      </Col>
-                      <Col span={12}>
-                        <BizFormItemSelect
-                          name={['options', 'fontOptions']}
-                          label="文字粗细"
-                          options={fontOptionsOptions}
-                        />
-                      </Col>
-                      <Col span={12}>
-                        <BizFormItemSelect
-                          name={['options', 'textAlign']}
-                          label="文本对齐"
-                          options={textAlignOptions}
-                        />
-                      </Col>
-                      <Col span={12}>
-                        <BizFormItemSelect
-                          name={['options', 'textPosition']}
-                          label="文本位置"
-                          options={textPositionOptions}
-                          style={{ marginBottom: 0 }}
-                        />
-                      </Col>
-                      <Col span={12}>
-                        <BizFormItemNumber
-                          name={['options', 'textMargin']}
-                          label="文本间距"
-                          style={{ marginBottom: 0 }}
-                        />
-                      </Col>
-                    </Row>
-                  </Panel>
-                  {/* @ts-ignore */}
-                  <Panel header={<a>特殊配置</a>} key="2" forceRender>
-                    <Row>
-                      <Col span={12}>
-                        <BizFormItemSwitch
-                          name={['options', 'ean128']}
-                          label="ean128"
-                          tooltip="仅 CODE128 生效"
-                        />
-                      </Col>
-                      <Col span={12}>
-                        <BizFormItemSwitch
-                          name={['options', 'flat']}
-                          label="flat"
-                          tooltip="仅 EAN13 EAN8 UPC 生效"
-                        />
-                      </Col>
-                      <Col span={12}>
-                        <BizFormItemInput
-                          name={['options', 'lastChar']}
-                          label="lastChar"
-                          tooltip="仅 EAN13 生效"
-                        />
-                      </Col>
-                    </Row>
-                  </Panel>
-                </Collapse>
-              </>
-            }
-          />
-        </BizForm>
-      </Col>
-      <Col span={24}>
-        <Divider orientation="left">条形码</Divider>
-        <Barcode type={value.element} value={value.text} {...value.options} />
-      </Col>
-    </Row>
+              </Panel>
+              {/* @ts-ignore */}
+              <Panel header={<a>特殊配置</a>} key="2" forceRender>
+                <Row>
+                  <Col span={12}>
+                    <BizFormItemSwitch
+                      name={['options', 'ean128']}
+                      label="ean128"
+                      tooltip="仅 CODE128 生效"
+                    />
+                  </Col>
+                  <Col span={12}>
+                    <BizFormItemSwitch
+                      name={['options', 'flat']}
+                      label="flat"
+                      tooltip="仅 EAN13 EAN8 UPC 生效"
+                    />
+                  </Col>
+                  <Col span={12}>
+                    <BizFormItemInput
+                      name={['options', 'lastChar']}
+                      label="lastChar"
+                      tooltip="仅 EAN13 生效"
+                    />
+                  </Col>
+                </Row>
+              </Panel>
+            </Collapse>
+          </>
+        }
+        rightTitle="条形码"
+        rightContent={
+          <Affix>
+            <Barcode type={value.element} value={value.text} {...value.options} />
+          </Affix>
+        }
+      />
+    </BizForm>
   );
 }
 

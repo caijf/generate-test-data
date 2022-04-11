@@ -3,7 +3,6 @@ import { ReloadOutlined } from '@ant-design/icons';
 import {
   Row,
   Col,
-  Divider,
   AutoComplete,
   Input,
   Tooltip,
@@ -11,12 +10,12 @@ import {
   Select,
   Radio,
   Empty,
-  RowProps,
   SelectProps,
 } from 'antd';
 import { BizForm, BizFormItemSelect } from 'antd-more';
 import { formatBankCard } from 'util-helpers';
 import { banks, cards, CardType, CardTypeName } from 'bankcard';
+import HorizontalLayout, { gutter } from '../Layout/HorizontalLayout';
 import createBankCardNo from './createBankCardNo';
 import styles from './index.less';
 
@@ -40,22 +39,6 @@ const CardFormatOptions = [
   {
     label: '六位间隔',
     value: '6',
-  },
-];
-
-const colspan = {
-  xs: 24,
-  xl: 12,
-};
-
-const gutter: RowProps['gutter'] = [
-  {
-    xs: 8,
-    sm: 24,
-  },
-  {
-    xs: 16,
-    sm: 24,
   },
 ];
 
@@ -125,9 +108,9 @@ function Demo() {
   }, [cardNo, currentCard, cardFormat]);
 
   return (
-    <Row gutter={gutter}>
-      <Col {...colspan}>
-        <Divider orientation="left">基本信息</Divider>
+    <HorizontalLayout
+      leftTitle="基本信息"
+      leftContent={
         <BizForm
           form={form}
           onValuesChange={(_, values) => setSearchValues(values)}
@@ -149,10 +132,10 @@ function Demo() {
           />
           <BizFormItemSelect name="cardType" label="卡类型" options={CardTypeOptions} />
         </BizForm>
-      </Col>
-      <Col {...colspan} style={{ background: '#f5f5f5' }}>
-        <Divider orientation="left">展示</Divider>
-        {cardList.length > 0 && currentCard ? (
+      }
+      rightTitle="展示"
+      rightContent={
+        cardList.length > 0 && currentCard ? (
           <Row gutter={gutter}>
             <Col span={24}>
               <Input.Group compact style={{ display: 'flex' }}>
@@ -200,9 +183,9 @@ function Demo() {
           </Row>
         ) : (
           <Empty description="暂无数据" style={{ marginBottom: 12 }} />
-        )}
-      </Col>
-    </Row>
+        )
+      }
+    />
   );
 }
 

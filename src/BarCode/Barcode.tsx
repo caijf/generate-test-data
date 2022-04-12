@@ -22,7 +22,6 @@ const Barcode: React.FC<BarcodeProps> = ({ type = 'canvas', value, ...restProps 
 
   const run = () => {
     if (elRef.current) {
-      console.log('run');
       const realOptions = restProps || {};
       const realText = value || undefined;
 

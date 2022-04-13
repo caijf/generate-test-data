@@ -326,10 +326,10 @@ function Demo() {
               <BizFormItemSelect name="type" label="渲染元素" options={typeOptions} />
             </Col>
             <Col span={12}>
-              <BizFormItemNumber name="width" label="宽" inputProps={{ min: 0 }} />
+              <BizFormItemNumber name="width" label="宽" inputProps={{ min: 150 }} />
             </Col>
             <Col span={12}>
-              <BizFormItemNumber name="height" label="高" inputProps={{ min: 0 }} />
+              <BizFormItemNumber name="height" label="高" inputProps={{ min: 150 }} />
             </Col>
             <Col span={12}>
               <BizFormItemNumber name="margin" label="外边留白" inputProps={{ min: 0 }} />

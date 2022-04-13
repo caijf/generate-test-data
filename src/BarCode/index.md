@@ -1,9 +1,9 @@
 ---
 group:
-  title: 条形码
+  title: 条形码生成器
 ---
 
-# 条形码
+# 条形码生成器
 
 <!-- <details>
   <summary><a href="https://baike.baidu.com/item/条形码/278988">条形码(barcode)</a>是将宽度不等的多个黑条和空白，按照一定的编码规则排列，用以表达一组信息的图形标识符。</summary>

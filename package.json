@@ -56,7 +56,9 @@
     "father-build": "^1.17.2",
     "gh-pages": "^3.0.0",
     "jsbarcode": "^3.11.5",
+    "lcn": "^4.1.0",
     "lint-staged": "^12.3.7",
+    "moment": "^2.29.2",
     "prettier": "^2.6.2",
     "prettier-plugin-two-style-order": "^1.0.1",
     "qr-code-styling": "^1.6.0-rc.1",
@@ -67,6 +69,7 @@
     "stylelint-config-standard": "^25.0.0",
     "stylelint-declaration-block-no-ignored-properties": "^2.5.0",
     "stylelint-no-unsupported-browser-features": "^5.0.3",
+    "util-helpers": "^4.7.2",
     "yorkie": "^2.0.0"
   }
 }

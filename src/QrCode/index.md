@@ -1,8 +1,8 @@
 ---
 group:
-  title: 二维码生成器
+  title: 数据生成
 ---
 
-# 二维码生成器
+# 二维码
 
 <code src="./index.tsx" inline />

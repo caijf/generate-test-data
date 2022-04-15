@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react';
 import moment from 'moment';
-import { getPC, data, isAreaCode } from 'lcn';
+import { getPC } from 'lcn';
 import { BizForm, BizFormItem, BizFormItemSelect, BizFormItemDate } from 'antd-more';
 import { Cascader, Radio, Input, Tooltip, Button, InputNumber, ConfigProvider, List } from 'antd';
 import zh_CN from 'antd/lib/locale/zh_CN';
 import { ReloadOutlined } from '@ant-design/icons';
 import { Gender, GenderOptions } from './constants';
 import HorizontalLayout from '../Layout/HorizontalLayout';
-import createIdCardNo from './createIdCardNo';
+import { createIdCardNo } from './utils';
 
 const pc = getPC({ fieldNames: { code: 'value', name: 'label' } });
 
@@ -47,35 +47,15 @@ const transformAreaCode = (value: any) => {
 };
 
 const defaultValues = {
-  areaCode: ['110000', '110100'],
+  cityCode: ['110000', '110100'],
   birthday: moment('1990-01-01'),
   gender: Gender.Male,
 };
 
-const areas = data.filter((item) => isAreaCode(item.code));
-const getRandomAreaCode = () => {
-  return areas[Math.floor(Math.random() * areas.length)].code;
-};
-const getRandomBirthday = () => {
-  const startTime = new Date('1950/01/01').getTime();
-  const endTime = Date.now();
-  const randomTime = Math.floor(Math.random() * (endTime - startTime));
-  return moment(startTime + randomTime).format('YYYYMMDD');
-};
-const getRandomGender = () => {
-  const random = Math.ceil(Math.random() * 10);
-  return random % 2 === 0 ? Gender.Male : Gender.Female;
-};
-const getRandomIdCardNo = (total = 1, areaCode = '', birthday = '', gender?: Gender) => {
+const getRandomIdCardNo = (total = 1, cityCode = '', birthday = '', gender?: Gender) => {
   return new Array(total > 0 ? total : 1)
     .fill(undefined)
-    .map(() =>
-      createIdCardNo(
-        areaCode || getRandomAreaCode(),
-        birthday || getRandomBirthday(),
-        gender || getRandomGender(),
-      ),
-    );
+    .map(() => createIdCardNo(cityCode, birthday, gender));
 };
 
 function Demo() {
@@ -92,10 +72,10 @@ function Demo() {
     (allValues?: any) => {
       if (type === Type.Config) {
         const values = allValues || form.getFieldsValue();
-        const areaCode = transformAreaCode(values.areaCode);
+        const cityCode = transformAreaCode(values.cityCode);
         const birthday = values.birthday.format('YYYYMMDD');
         const gender = values.gender;
-        setIdCardList(getRandomIdCardNo(count, areaCode, birthday, gender));
+        setIdCardList(getRandomIdCardNo(count, cityCode, birthday, gender));
       } else {
         setIdCardList(getRandomIdCardNo(count));
       }
@@ -132,7 +112,7 @@ function Demo() {
               }}
               style={{ display: type === Type.Config ? 'block' : 'none' }}
             >
-              <BizFormItem name="areaCode" label="出生地" transform={transformAreaCode}>
+              <BizFormItem name="cityCode" label="出生地">
                 <Cascader options={pc} allowClear={false} placeholder="请选择出生地" />
               </BizFormItem>
               <BizFormItemDate

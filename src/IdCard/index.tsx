@@ -3,7 +3,17 @@ import * as React from 'react';
 import moment from 'moment';
 import { getPC } from 'lcn';
 import { BizForm, BizFormItem, BizFormItemSelect, BizFormItemDate } from 'antd-more';
-import { Cascader, Radio, Input, Tooltip, Button, InputNumber, ConfigProvider, List } from 'antd';
+import {
+  Cascader,
+  Radio,
+  Input,
+  Tooltip,
+  Button,
+  InputNumber,
+  ConfigProvider,
+  List,
+  Typography,
+} from 'antd';
 import zh_CN from 'antd/lib/locale/zh_CN';
 import { ReloadOutlined } from '@ant-design/icons';
 import { Gender, GenderOptions } from './constants';
@@ -154,7 +164,13 @@ function Demo() {
               <List
                 dataSource={idCardList}
                 bordered
-                renderItem={(item) => <List.Item>{item}</List.Item>}
+                renderItem={(item) => (
+                  <List.Item>
+                    <Typography.Paragraph copyable style={{ margin: 0 }}>
+                      {item}
+                    </Typography.Paragraph>
+                  </List.Item>
+                )}
                 size="small"
                 style={{ margin: '12px 0', background: '#fff' }}
               />

@@ -15169,10 +15169,10 @@ util-helpers@^4.6.1:
   dependencies:
     "@babel/runtime" "^7.14.0"
 
-util-helpers@^4.7.2:
-  version "4.7.2"
-  resolved "https://registry.npmjs.org/util-helpers/-/util-helpers-4.7.2.tgz#0c6e82e8fc2b5150c18527a4d05b8c24addf0118"
-  integrity sha512-p+KARxDuHlMp27blklZyJrwdomJ9cedFifOh7k+WUr76TPimjRjZC6f4bPjwn0JFoa/Zc5i954J7McYcFm6UTA==
+util-helpers@^4.8.0:
+  version "4.8.0"
+  resolved "https://registry.npmjs.org/util-helpers/-/util-helpers-4.8.0.tgz#8d3d38d3135774d1553a93c8364aa6d180e163b6"
+  integrity sha512-elaSdH3nq2k8+Te0I65HhgtefwPjxc7ySZRXYAbsuAaF7sAFSu880FtawQeEeCxsisir752TmWLB0zA8eNBYig==
   dependencies:
     "@babel/runtime" "^7.14.0"
 

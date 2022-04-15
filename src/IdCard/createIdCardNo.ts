@@ -1,12 +1,5 @@
+import { randomString } from 'util-helpers';
 import { Gender } from './constants';
-
-function randomVal(len = 10, prefixStr = ''): string {
-  if (len-- > 0) {
-    const r = Math.floor(Math.random() * 10);
-    return randomVal(len, prefixStr + r);
-  }
-  return prefixStr;
-}
 
 function sumCheckCode(id: string) {
   let index = 0;
@@ -39,7 +32,7 @@ function generateGenderCode(gender: Gender) {
 }
 
 function createIdCardNo(areaCode: string, birthday: string, gender: Gender) {
-  const sequenceCode = randomVal(2) + generateGenderCode(gender);
+  const sequenceCode = randomString(2, '0123456789') + generateGenderCode(gender);
   const prefixCode = areaCode + birthday + sequenceCode;
   const checkCode = sumCheckCode(prefixCode);
   return prefixCode + checkCode;

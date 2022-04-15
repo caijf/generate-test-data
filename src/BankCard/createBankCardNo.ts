@@ -1,10 +1,4 @@
-function randomVal(len = 10, prefixStr = ''): string {
-  if (len-- > 0) {
-    const r = Math.floor(Math.random() * 10);
-    return randomVal(len, prefixStr + r);
-  }
-  return prefixStr;
-}
+import { randomString } from 'util-helpers';
 
 function sumCheckCode(num: number | string) {
   const numArr = (num + '').replace(/\D/g, '').split('').reverse();
@@ -19,7 +13,7 @@ function sumCheckCode(num: number | string) {
 }
 
 function createBankCardNo(cardBin = '', len = 16) {
-  const cardNo = randomVal(len - cardBin.length - 1, cardBin);
+  const cardNo = cardBin + randomString(len - cardBin.length - 1, '0123456789');
   return cardNo + sumCheckCode(cardNo);
 }
 

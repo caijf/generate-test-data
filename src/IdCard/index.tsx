@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react';
 import moment from 'moment';
-import { getPCA, data, isAreaCode } from 'lcn';
+import { getPC, data, isAreaCode } from 'lcn';
 import { BizForm, BizFormItem, BizFormItemSelect, BizFormItemDate } from 'antd-more';
 import { Cascader, Radio, Input, Tooltip, Button, InputNumber, ConfigProvider, List } from 'antd';
 import zh_CN from 'antd/lib/locale/zh_CN';
@@ -10,7 +10,7 @@ import { Gender, GenderOptions } from './constants';
 import HorizontalLayout from '../Layout/HorizontalLayout';
 import createIdCardNo from './createIdCardNo';
 
-const pca = getPCA({ fieldNames: { code: 'value', name: 'label' } });
+const pc = getPC({ fieldNames: { code: 'value', name: 'label' } });
 
 enum Type {
   Config,
@@ -47,7 +47,7 @@ const transformAreaCode = (value: any) => {
 };
 
 const defaultValues = {
-  areaCode: ['110000', '110100', '110101'],
+  areaCode: ['110000', '110100'],
   birthday: moment('1990-01-01'),
   gender: Gender.Male,
 };
@@ -133,7 +133,7 @@ function Demo() {
               style={{ display: type === Type.Config ? 'block' : 'none' }}
             >
               <BizFormItem name="areaCode" label="出生地" transform={transformAreaCode}>
-                <Cascader options={pca} allowClear={false} placeholder="请选择出生地" />
+                <Cascader options={pc} allowClear={false} placeholder="请选择出生地" />
               </BizFormItem>
               <BizFormItemDate
                 name="birthday"

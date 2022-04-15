@@ -2440,6 +2440,13 @@
   resolved "https://registry.npmjs.org/@types/q/-/q-1.5.5.tgz#75a2a8e7d8ab4b230414505d92335d1dcb53a6df"
   integrity sha512-L28j2FcJfSZOnL1WBjDYp2vUHCeIFlyYI/53EwD/rKUBQ7MtUUfbQWiyKJGpcnv4/WgrhWsFKrcPstcAt/J0tQ==
 
+"@types/react-copy-to-clipboard@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.npmjs.org/@types/react-copy-to-clipboard/-/react-copy-to-clipboard-5.0.2.tgz#c29690b472a54edff35916f0d1c6c797ad0fd34b"
+  integrity sha512-O29AThfxrkUFRsZXjfSWR2yaWo0ppB1yLEnHA+Oh24oNetjBAwTDu1PmolIqdJKzsZiO4J1jn6R6TmO96uBvGg==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-dom@*":
   version "18.0.0"
   resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-18.0.0.tgz#b13f8d098e4b0c45df4f1ed123833143b0c71141"
@@ -4691,7 +4698,7 @@ copy-text-to-clipboard@^2.2.0:
   resolved "https://registry.npmjs.org/copy-text-to-clipboard/-/copy-text-to-clipboard-2.2.0.tgz#329dd6daf8c42034c763ace567418401764579ae"
   integrity sha512-WRvoIdnTs1rgPMkgA2pUOa/M4Enh2uzCwdKsOMYNAJiz/4ZvEJgmbF4OmninPmlFdAWisfeh0tH+Cpf7ni3RqQ==
 
-copy-to-clipboard@^3.2.0:
+copy-to-clipboard@^3.2.0, copy-to-clipboard@^3.3.1:
   version "3.3.1"
   resolved "https://registry.npmjs.org/copy-to-clipboard/-/copy-to-clipboard-3.3.1.tgz#115aa1a9998ffab6196f93076ad6da3b913662ae"
   integrity sha512-i13qo6kIHTTpCm8/Wup+0b1mVWETvu2kIMzKoK8FpkLkFxlt0znUAHcMzox+T8sPlqtZXq3CulEjQHsYiGFJUw==
@@ -12378,6 +12385,14 @@ react-color@^2.19.3:
     reactcss "^1.2.0"
     tinycolor2 "^1.4.1"
 
+react-copy-to-clipboard@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.npmjs.org/react-copy-to-clipboard/-/react-copy-to-clipboard-5.1.0.tgz#09aae5ec4c62750ccb2e6421a58725eabc41255c"
+  integrity sha512-k61RsNgAayIJNoy9yDsYzDe/yAZAzEbEgcz3DZMhF686LEyukcE1hzurxe85JandPUG+yTfGVFzuEw3xt8WP/A==
+  dependencies:
+    copy-to-clipboard "^3.3.1"
+    prop-types "^15.8.1"
+
 react-docgen-typescript-dumi-tmp@^1.22.1-0:
   version "1.22.1-0"
   resolved "https://registry.npmjs.org/react-docgen-typescript-dumi-tmp/-/react-docgen-typescript-dumi-tmp-1.22.1-0.tgz#6f452de05c5c114a6e1dd60b34930afaa7ae39a0"
@@ -15169,10 +15184,10 @@ util-helpers@^4.6.1:
   dependencies:
     "@babel/runtime" "^7.14.0"
 
-util-helpers@^4.8.0:
-  version "4.8.0"
-  resolved "https://registry.npmjs.org/util-helpers/-/util-helpers-4.8.0.tgz#8d3d38d3135774d1553a93c8364aa6d180e163b6"
-  integrity sha512-elaSdH3nq2k8+Te0I65HhgtefwPjxc7ySZRXYAbsuAaF7sAFSu880FtawQeEeCxsisir752TmWLB0zA8eNBYig==
+util-helpers@^4.8.2:
+  version "4.8.2"
+  resolved "https://registry.npmjs.org/util-helpers/-/util-helpers-4.8.2.tgz#462ed26e1df0d65d59888465718d01869233ad01"
+  integrity sha512-y+JWkDlcYzlpMpytN/E8aLPgwMsWd7c93VRHBlcau5jAEC/dyLiJ2FYY/NqDLqrmOktgu0FtsDUkVSgticygTg==
   dependencies:
     "@babel/runtime" "^7.14.0"
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ReloadOutlined } from '@ant-design/icons';
+import { ReloadOutlined, CopyOutlined } from '@ant-design/icons';
 import {
   Row,
   Col,
@@ -11,7 +11,10 @@ import {
   Radio,
   Empty,
   SelectProps,
+  Typography,
+  message,
 } from 'antd';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { BizForm, BizFormItemSelect } from 'antd-more';
 import { formatBankCard } from 'util-helpers';
 import { banks, cards, CardType, CardTypeName } from 'bankcard';
@@ -163,6 +166,21 @@ function Demo() {
                 />
                 <Tooltip title="点击随机生成卡号">
                   <Button icon={<ReloadOutlined />} onClick={handleRefreshCardOptions} />
+                </Tooltip>
+                <Tooltip title="点击复制">
+                  <CopyToClipboard
+                    text={currentCard.cardBin + cardNo}
+                    onCopy={() => {
+                      message.success(
+                        <>
+                          复制成功！
+                          <Typography.Text code>{currentCard.cardBin + cardNo}</Typography.Text>
+                        </>,
+                      );
+                    }}
+                  >
+                    <Button icon={<CopyOutlined />} />
+                  </CopyToClipboard>
                 </Tooltip>
               </Input.Group>
             </Col>

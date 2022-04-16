@@ -13,3 +13,4 @@
   - [条形码](https://caijf.github.io/generate-test-data/index.html#/bar-code)
   - [身份证](https://caijf.github.io/generate-test-data/index.html#/id-card)
   - [二维码](https://caijf.github.io/generate-test-data/index.html#/qr-code)
+  - [统一社会信用代码](https://caijf.github.io/generate-test-data/index.html#/social-credit-code)

@@ -13,3 +13,4 @@
   - [条形码](/bar-code)
   - [身份证](/id-card)
   - [二维码](/qr-code)
+  - [统一社会信用代码](/social-credit-code)

@@ -56,7 +56,7 @@ function QueryIdCard() {
         onFinish={({ idCard }) => {
           const info = parseIdCard(idCard);
           if (info) {
-            console.log(info);
+            // console.log(info);
             const areaCode = info.origin.province + info.origin.city + info.origin.area;
             const [province, city, area] = parseAreaCode(areaCode);
             setData({

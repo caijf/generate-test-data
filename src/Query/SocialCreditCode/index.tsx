@@ -5,7 +5,7 @@ import { isSocialCreditCode } from 'util-helpers';
 import { parseAreaCode } from 'lcn';
 import { organization } from '../../SocialCreditCode/constants';
 
-function QueryBankCard() {
+function QuerySocialCreditCode() {
   const [data, setData] = React.useState<{
     unifiedIdentifier: string;
     organizationName: string;
@@ -93,4 +93,4 @@ function QueryBankCard() {
   );
 }
 
-export default QueryBankCard;
+export default QuerySocialCreditCode;

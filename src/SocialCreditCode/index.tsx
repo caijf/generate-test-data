@@ -1,9 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react';
-import { getPC } from 'lcn';
+import { getPC, getPCA } from 'lcn';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { BizForm, BizFormItem } from 'antd-more';
-import { Cascader, Radio, Button, Input, Tooltip, Alert, Typography, message } from 'antd';
+import {
+  Cascader,
+  Radio,
+  Button,
+  Input,
+  Tooltip,
+  Alert,
+  Typography,
+  message,
+  Checkbox,
+  CheckboxProps,
+} from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
 import HorizontalLayout from '../Layout/HorizontalLayout';
 import BodyIdentifierInput from './BodyIdentifierInput';
@@ -16,6 +27,7 @@ import {
 } from './utils';
 
 const pc = getPC({ fieldNames: { code: 'value', name: 'label' }, inland: true });
+const pca = getPCA({ fieldNames: { code: 'value', name: 'label' }, inland: true });
 
 enum Type {
   Config,
@@ -53,12 +65,14 @@ const transformAreaCode = (value: any) => {
 
 const defaultValues = {
   org: ['9', '1'],
-  areaCode: ['110000', '110100'],
+  areaCode: ['110000', '110100', '110101'],
+  cityCode: ['110000', '110100'],
   bodyIdentifier: getBodyIdentifier(),
 };
 
 function Demo() {
   const [form] = BizForm.useForm();
+  const [supportedArea, setSupportedArea] = React.useState(false);
   const [type, setType] = React.useState(typeOptions[0].value);
   const [socialCreditCode, setSocialCreditCode] = React.useState<string>('');
 
@@ -66,7 +80,7 @@ function Demo() {
     (allValues?: any) => {
       if (type === Type.Config) {
         const values = allValues || form.getFieldsValue();
-        const areaCode = transformAreaCode(values.areaCode);
+        const areaCode = transformAreaCode(supportedArea ? values.areaCode : values.cityCode);
         const org = values.org.join('');
         const bodyIdentifier = values.bodyIdentifier;
 
@@ -79,7 +93,14 @@ function Demo() {
         setSocialCreditCode(createSocialCreditCode());
       }
     },
-    [form, type],
+    [form, supportedArea, type],
+  );
+
+  const handleChangeSupportedAres = React.useCallback(
+    (e: Parameters<NonNullable<CheckboxProps['onChange']>>[0]) => {
+      setSupportedArea(e.target.checked);
+    },
+    [],
   );
 
   React.useEffect(() => {
@@ -91,7 +112,7 @@ function Demo() {
       form.setFieldsValue({
         bodyIdentifier: value,
       });
-      console.log(value);
+      // console.log(value);
       update();
     },
     [form, update],
@@ -125,8 +146,31 @@ function Demo() {
             <BizFormItem name="org" label="机构类别">
               <Cascader options={organization} allowClear={false} />
             </BizFormItem>
-            <BizFormItem name="areaCode" label="经营地址" transform={transformAreaCode}>
+            <BizFormItem
+              name="cityCode"
+              label="经营地址"
+              transform={transformAreaCode}
+              hidden={supportedArea}
+              contentAfter={
+                <Checkbox checked={false} onChange={handleChangeSupportedAres}>
+                  区级
+                </Checkbox>
+              }
+            >
               <Cascader options={pc} allowClear={false} />
+            </BizFormItem>
+            <BizFormItem
+              name="areaCode"
+              label="经营地址"
+              transform={transformAreaCode}
+              hidden={!supportedArea}
+              contentAfter={
+                <Checkbox checked onChange={handleChangeSupportedAres}>
+                  区级
+                </Checkbox>
+              }
+            >
+              <Cascader options={pca} allowClear={false} />
             </BizFormItem>
             <BizFormItem
               name="bodyIdentifier"

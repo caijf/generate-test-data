@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { randomString } from 'util-helpers';
-import { data, isCityCode } from 'lcn';
+import { data, isCityCode, isAreaCode } from 'lcn';
 import { Gender } from './constants';
 
 function sumCheckCode(id: string) {
@@ -33,9 +33,9 @@ function generateGenderCode(gender: Gender) {
   return r % 10;
 }
 
-const cities = data.filter((item) => isCityCode(item.code));
-const getRandomCityCode = () => {
-  return cities[Math.floor(Math.random() * cities.length)].code;
+const areas = data.filter((item) => isCityCode(item.code) || isAreaCode(item.code));
+const getRandomAreaCode = () => {
+  return areas[Math.floor(Math.random() * areas.length)].code;
 };
 const getRandomBirthday = () => {
   const startTime = new Date('1950/01/01').getTime();
@@ -51,12 +51,12 @@ const getSequenceCode = (gender?: Gender) => {
   return randomString(2, '0123456789') + (gender ? generateGenderCode(gender) : getRandomGender());
 };
 
-export function createIdCardNo(cityCode?: string, birthday?: string, gender?: Gender) {
-  const realCityCode = cityCode || getRandomCityCode();
+export function createIdCardNo(areaCode?: string, birthday?: string, gender?: Gender) {
+  const realAreaCode = areaCode || getRandomAreaCode();
   const realBirthday = birthday || getRandomBirthday();
   const sequenceCode = getSequenceCode(gender);
 
-  const prefixCode = realCityCode + realBirthday + sequenceCode;
+  const prefixCode = realAreaCode + realBirthday + sequenceCode;
   const checkCode = sumCheckCode(prefixCode);
   return prefixCode + checkCode;
 }

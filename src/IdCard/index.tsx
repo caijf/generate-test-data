@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react';
 import moment from 'moment';
-import { getPC } from 'lcn';
+import { getPC, getPCA } from 'lcn';
 import { BizForm, BizFormItem, BizFormItemSelect, BizFormItemDate } from 'antd-more';
 import {
   Cascader,
@@ -13,6 +13,8 @@ import {
   ConfigProvider,
   List,
   Typography,
+  Checkbox,
+  CheckboxProps,
 } from 'antd';
 import zh_CN from 'antd/lib/locale/zh_CN';
 import { ReloadOutlined } from '@ant-design/icons';
@@ -21,6 +23,7 @@ import HorizontalLayout from '../Layout/HorizontalLayout';
 import { createIdCardNo } from './utils';
 
 const pc = getPC({ fieldNames: { code: 'value', name: 'label' } });
+const pca = getPCA({ fieldNames: { code: 'value', name: 'label' } });
 
 enum Type {
   Config,
@@ -58,18 +61,20 @@ const transformAreaCode = (value: any) => {
 
 const defaultValues = {
   cityCode: ['110000', '110100'],
+  areaCode: ['110000', '110100', '110101'],
   birthday: moment('1990-01-01'),
   gender: Gender.Male,
 };
 
-const getRandomIdCardNo = (total = 1, cityCode = '', birthday = '', gender?: Gender) => {
+const getRandomIdCardNo = (total = 1, areaCode = '', birthday = '', gender?: Gender) => {
   return new Array(total > 0 ? total : 1)
     .fill(undefined)
-    .map(() => createIdCardNo(cityCode, birthday, gender));
+    .map(() => createIdCardNo(areaCode, birthday, gender));
 };
 
 function Demo() {
   const [form] = BizForm.useForm();
+  const [supportedArea, setSupportedArea] = React.useState(false);
   const [type, setType] = React.useState(typeOptions[0].value);
   const [count, setCount] = React.useState(5);
   const [idCardList, setIdCardList] = React.useState<string[]>([]);
@@ -82,15 +87,24 @@ function Demo() {
     (allValues?: any) => {
       if (type === Type.Config) {
         const values = allValues || form.getFieldsValue();
-        const cityCode = transformAreaCode(values.cityCode);
+        const areaCode = supportedArea
+          ? transformAreaCode(values.areaCode)
+          : transformAreaCode(values.cityCode);
         const birthday = values.birthday.format('YYYYMMDD');
         const gender = values.gender;
-        setIdCardList(getRandomIdCardNo(count, cityCode, birthday, gender));
+        setIdCardList(getRandomIdCardNo(count, areaCode, birthday, gender));
       } else {
         setIdCardList(getRandomIdCardNo(count));
       }
     },
-    [count, form, type],
+    [count, form, supportedArea, type],
+  );
+
+  const handleChangeSupportedAres = React.useCallback(
+    (e: Parameters<NonNullable<CheckboxProps['onChange']>>[0]) => {
+      setSupportedArea(e.target.checked);
+    },
+    [],
   );
 
   React.useEffect(() => {
@@ -122,8 +136,29 @@ function Demo() {
               }}
               style={{ display: type === Type.Config ? 'block' : 'none' }}
             >
-              <BizFormItem name="cityCode" label="出生地">
+              <BizFormItem
+                name="cityCode"
+                label="出生地"
+                hidden={supportedArea}
+                contentAfter={
+                  <Checkbox checked={false} onChange={handleChangeSupportedAres}>
+                    区级
+                  </Checkbox>
+                }
+              >
                 <Cascader options={pc} allowClear={false} placeholder="请选择出生地" />
+              </BizFormItem>
+              <BizFormItem
+                name="areaCode"
+                label="出生地"
+                hidden={!supportedArea}
+                contentAfter={
+                  <Checkbox checked onChange={handleChangeSupportedAres}>
+                    区级
+                  </Checkbox>
+                }
+              >
+                <Cascader options={pca} allowClear={false} placeholder="请选择出生地" />
               </BizFormItem>
               <BizFormItemDate
                 name="birthday"

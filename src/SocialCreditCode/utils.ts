@@ -1,6 +1,6 @@
-import { data, isAreaCode, isCityCode } from 'lcn';
 import { randomString } from 'util-helpers';
 import { basicCode, organization } from './constants';
+import { getRandomCityAndAreaCode } from '../utils/area';
 
 export function getBodyIdentifier() {
   return randomString(9, basicCode);
@@ -12,11 +12,6 @@ export function getRandomOrg() {
   const registryClasses = organization.find((item) => item.value === registryCode)!.children;
   const orgCode = randomString(1, registryClasses.map((item) => item.value).join(''));
   return [registryCode, orgCode];
-}
-
-const areas = data.filter((item) => isAreaCode(item.code) || isCityCode(item.code));
-export function getRandomAreaCode() {
-  return areas[Math.floor(Math.random() * areas.length)].code;
 }
 
 export function isBodyIdentifier(value: string) {
@@ -69,7 +64,7 @@ export function createSocialCreditCode(
   bodyIdentifier?: string,
 ) {
   const realOrgCode = orgCode || getRandomOrg().join('');
-  const realAreaCode = areaCode || getRandomAreaCode();
+  const realAreaCode = areaCode || getRandomCityAndAreaCode();
   const realBodyIdentifier = bodyIdentifier || getBodyIdentifier();
 
   const precode = realOrgCode + realAreaCode + realBodyIdentifier;

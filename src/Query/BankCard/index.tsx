@@ -12,7 +12,7 @@ function QueryBankCard() {
   >(null);
 
   return (
-    <Card>
+    <Card bodyStyle={{ padding: 12 }}>
       <BizForm
         submitter={false}
         size="large"
@@ -49,8 +49,14 @@ function QueryBankCard() {
         />
       </BizForm>
       {data && (
-        <BizDescriptions column={1} bordered>
-          <BizDescriptions.Item label="银行卡号 或 卡Bin">{data.bankCardNo}</BizDescriptions.Item>
+        <BizDescriptions
+          column={1}
+          bordered
+          size="small"
+          labelStyle={{ padding: 8 }}
+          contentStyle={{ padding: 8 }}
+        >
+          <BizDescriptions.Item label="银行卡号">{data.bankCardNo}</BizDescriptions.Item>
           <BizDescriptions.Item label="银行名称">{data.bankName}</BizDescriptions.Item>
           <BizDescriptions.Item label="银行编码">{data.bankCode}</BizDescriptions.Item>
           <BizDescriptions.Item label="卡类型">{data.cardTypeName}</BizDescriptions.Item>

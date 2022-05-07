@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, Button } from 'antd';
+import { Button } from 'antd';
 import { BizForm, BizFormItemInput, BizDescriptions } from 'antd-more';
 import { isSocialCreditCode } from 'util-helpers';
 import { parseAreaCode } from 'lcn';
@@ -17,7 +17,7 @@ function QuerySocialCreditCode() {
   } | null>(null);
 
   return (
-    <Card>
+    <div>
       <BizForm
         submitter={false}
         size="large"
@@ -77,7 +77,13 @@ function QuerySocialCreditCode() {
         />
       </BizForm>
       {data && (
-        <BizDescriptions column={1} bordered>
+        <BizDescriptions
+          column={1}
+          bordered
+          size="small"
+          labelStyle={{ padding: 8 }}
+          contentStyle={{ padding: 8 }}
+        >
           <BizDescriptions.Item label="统一社会信用代码">
             {data.unifiedIdentifier}
           </BizDescriptions.Item>
@@ -89,7 +95,7 @@ function QuerySocialCreditCode() {
           <BizDescriptions.Item label="主体标识码">{data.bodyIdentifier}</BizDescriptions.Item>
         </BizDescriptions>
       )}
-    </Card>
+    </div>
   );
 }
 

@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { randomString } from 'util-helpers';
-import { data, isCityCode, isAreaCode } from 'lcn';
+import { getRandomCityAndAreaCode } from '../utils/area';
 import { Gender } from './constants';
 
 function sumCheckCode(id: string) {
@@ -33,10 +33,6 @@ function generateGenderCode(gender: Gender) {
   return r % 10;
 }
 
-const areas = data.filter((item) => isCityCode(item.code) || isAreaCode(item.code));
-const getRandomAreaCode = () => {
-  return areas[Math.floor(Math.random() * areas.length)].code;
-};
 const getRandomBirthday = () => {
   const startTime = new Date('1950/01/01').getTime();
   const endTime = Date.now();
@@ -52,7 +48,7 @@ const getSequenceCode = (gender?: Gender) => {
 };
 
 export function createIdCardNo(areaCode?: string, birthday?: string, gender?: Gender) {
-  const realAreaCode = areaCode || getRandomAreaCode();
+  const realAreaCode = areaCode || getRandomCityAndAreaCode();
   const realBirthday = birthday || getRandomBirthday();
   const sequenceCode = getSequenceCode(gender);
 

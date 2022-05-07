@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react';
 import moment from 'moment';
-import { getPC, getPCA } from 'lcn';
 import { BizForm, BizFormItem, BizFormItemSelect, BizFormItemDate } from 'antd-more';
 import {
   Cascader,
@@ -21,9 +20,7 @@ import { ReloadOutlined } from '@ant-design/icons';
 import { Gender, GenderOptions } from './constants';
 import HorizontalLayout from '../Layout/HorizontalLayout';
 import { createIdCardNo } from './utils';
-
-const pc = getPC({ fieldNames: { code: 'value', name: 'label' } });
-const pca = getPCA({ fieldNames: { code: 'value', name: 'label' } });
+import { pcOptions, pcaOptions } from '../utils/area';
 
 enum Type {
   Config,
@@ -146,7 +143,7 @@ function Demo() {
                   </Checkbox>
                 }
               >
-                <Cascader options={pc} allowClear={false} placeholder="请选择出生地" />
+                <Cascader options={pcOptions} allowClear={false} placeholder="请选择出生地" />
               </BizFormItem>
               <BizFormItem
                 name="areaCode"
@@ -158,7 +155,7 @@ function Demo() {
                   </Checkbox>
                 }
               >
-                <Cascader options={pca} allowClear={false} placeholder="请选择出生地" />
+                <Cascader options={pcaOptions} allowClear={false} placeholder="请选择出生地" />
               </BizFormItem>
               <BizFormItemDate
                 name="birthday"

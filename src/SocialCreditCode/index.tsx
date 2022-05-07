@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react';
-import { getPC, getPCA } from 'lcn';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { BizForm, BizFormItem } from 'antd-more';
 import {
@@ -25,9 +24,7 @@ import {
   normalizeBodyIdentifier,
   isBodyIdentifier,
 } from './utils';
-
-const pc = getPC({ fieldNames: { code: 'value', name: 'label' }, inland: true });
-const pca = getPCA({ fieldNames: { code: 'value', name: 'label' }, inland: true });
+import { pcOptions, pcaOptions } from '../utils/area';
 
 enum Type {
   Config,
@@ -157,7 +154,7 @@ function Demo() {
                 </Checkbox>
               }
             >
-              <Cascader options={pc} allowClear={false} />
+              <Cascader options={pcOptions} allowClear={false} />
             </BizFormItem>
             <BizFormItem
               name="areaCode"
@@ -170,7 +167,7 @@ function Demo() {
                 </Checkbox>
               }
             >
-              <Cascader options={pca} allowClear={false} />
+              <Cascader options={pcaOptions} allowClear={false} />
             </BizFormItem>
             <BizFormItem
               name="bodyIdentifier"
@@ -205,7 +202,7 @@ function Demo() {
       rightTitle="统一社会信用代码"
       rightContent={
         socialCreditCode ? (
-          <Input.Group compact style={{ display: 'flex', maxWidth: 320 }}>
+          <Input.Group compact style={{ display: 'flex', maxWidth: 320, marginBottom: 12 }}>
             <Input value={socialCreditCode} readOnly size="large" />
             <Tooltip title="点击复制">
               <CopyToClipboard

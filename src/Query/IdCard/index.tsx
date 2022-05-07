@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { parseIdCard } from 'util-helpers';
 import { parseAreaCode } from 'lcn';
-import { Card, Button, message } from 'antd';
+import { Button, message } from 'antd';
 import { BizForm, BizFormItemInput, BizDescriptions } from 'antd-more';
 
 // 第一位数字是以前的大区制代码。第二位是大区所在省市编码。全国共分为8个大区：华北（1）、东北（2）、华东（3）、中南（4）、西南（5）、西北（6）、台湾（7）和港澳（8）。
@@ -48,7 +48,7 @@ function QueryIdCard() {
   } | null>(null);
 
   return (
-    <Card>
+    <div>
       <BizForm
         submitter={false}
         size="large"
@@ -94,7 +94,13 @@ function QueryIdCard() {
         />
       </BizForm>
       {data && (
-        <BizDescriptions column={1} bordered>
+        <BizDescriptions
+          column={1}
+          bordered
+          size="small"
+          labelStyle={{ padding: 8 }}
+          contentStyle={{ padding: 8 }}
+        >
           <BizDescriptions.Item label="身份证号">{data.idCard}</BizDescriptions.Item>
           <BizDescriptions.Item label="地区">{data.region}</BizDescriptions.Item>
           <BizDescriptions.Item label="出生地">{`${data.province}/${data.city}${
@@ -107,7 +113,7 @@ function QueryIdCard() {
           <BizDescriptions.Item label="性别">{data.gender}</BizDescriptions.Item>
         </BizDescriptions>
       )}
-    </Card>
+    </div>
   );
 }
 

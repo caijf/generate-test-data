@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, Button, message } from 'antd';
+import { Button, message } from 'antd';
 import { BizForm, BizFormItemInput, BizDescriptions } from 'antd-more';
 import { searchCardBin, CardInfo } from 'bankcard';
 
@@ -12,7 +12,7 @@ function QueryBankCard() {
   >(null);
 
   return (
-    <Card bodyStyle={{ padding: 12 }}>
+    <div>
       <BizForm
         submitter={false}
         size="large"
@@ -64,7 +64,7 @@ function QueryBankCard() {
           <BizDescriptions.Item label="卡号长度">{data.len}</BizDescriptions.Item>
         </BizDescriptions>
       )}
-    </Card>
+    </div>
   );
 }
 

@@ -200,7 +200,7 @@ function Demo() {
             </Col>
           </Row>
         ) : (
-          <Empty description="暂无数据" style={{ marginBottom: 12 }} />
+          <Empty description="暂无数据，请尝试选择其他卡类型" style={{ marginBottom: 12 }} />
         )
       }
     />

@@ -54,10 +54,6 @@ function sumCheckCode(preCode: string) {
   return baseCodeArr[checkCodeIndex];
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-window.sumCheckCode = sumCheckCode;
-
 export function createSocialCreditCode(
   orgCode?: string,
   areaCode?: string,

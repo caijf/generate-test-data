@@ -3,7 +3,7 @@ import { randomString } from 'util-helpers';
 import { getRandomCityAndAreaCode } from '../utils/area';
 import { Gender } from './constants';
 
-function sumCheckCode(id: string) {
+export function sumCheckCode(id: string) {
   let index = 0;
   let sum = 0;
 

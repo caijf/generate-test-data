@@ -4,6 +4,9 @@ import { BizForm, BizFormItemInput, BizDescriptions } from 'antd-more';
 import { isSocialCreditCode } from 'util-helpers';
 import { parseAreaCode } from 'lcn';
 import { organization } from '../../SocialCreditCode/constants';
+import { sumCheckCode } from '../../SocialCreditCode/utils';
+
+const basicReg = /^[\dA-HJ-NPQRTUWXY]*$/;
 
 function QuerySocialCreditCode() {
   const [data, setData] = React.useState<{
@@ -62,10 +65,18 @@ function QuerySocialCreditCode() {
           extendRules={[
             {
               validator(rule, value) {
-                if (!isSocialCreditCode(value)) {
-                  return Promise.reject('请输入正确的统一社会信用代码');
+                if (isSocialCreditCode(value)) {
+                  return Promise.resolve();
                 }
-                return Promise.resolve();
+
+                const preCode = (value.substring(0, 17) || '').toUpperCase();
+                if (basicReg.test(preCode) && preCode.length === 17) {
+                  const checkCode = sumCheckCode(preCode);
+                  if (checkCode) {
+                    return Promise.reject(`验证不通过，可能你要输入的是 “${preCode}${checkCode}”`);
+                  }
+                }
+                return Promise.reject('请输入正确的统一社会信用代码');
               },
             },
           ]}

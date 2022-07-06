@@ -1,8 +1,11 @@
 import * as React from 'react';
-import { parseIdCard } from 'util-helpers';
+import { isIdCard, parseIdCard } from 'util-helpers';
 import { parseAreaCode } from 'lcn';
 import { Button, message } from 'antd';
 import { BizForm, BizFormItemInput, BizDescriptions } from 'antd-more';
+import { sumCheckCode } from '../../IdCard/utils';
+
+const basicReg = /^\d*$/;
 
 // 第一位数字是以前的大区制代码。第二位是大区所在省市编码。全国共分为8个大区：华北（1）、东北（2）、华东（3）、中南（4）、西南（5）、西北（6）、台湾（7）和港澳（8）。
 const Regions = [
@@ -81,11 +84,26 @@ function QueryIdCard() {
           name="idCard"
           label="身份证号"
           hideLabel
-          type="idCard"
           inputProps={{
             placeholder: '请输入身份证号',
           }}
           required
+          extendRules={[
+            {
+              validator(rule, value) {
+                if (isIdCard(value)) {
+                  return Promise.resolve();
+                }
+
+                const preCode = value.substring(0, 17) || '';
+                if (basicReg.test(preCode) && preCode.length === 17) {
+                  const checkCode = sumCheckCode(preCode);
+                  return Promise.reject(`验证不通过，可能你要输入的是 “${preCode}${checkCode}”`);
+                }
+                return Promise.reject('请输入正确的身份证号');
+              },
+            },
+          ]}
           contentAfter={
             <Button type="primary" htmlType="submit">
               查询

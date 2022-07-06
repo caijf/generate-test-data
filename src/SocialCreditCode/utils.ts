@@ -31,7 +31,7 @@ export function normalizeBodyIdentifier(value: string) {
 const baseCodeArr = '0123456789ABCDEFGHJKLMNPQRTUWXY'.split('');
 
 // 计算校验码
-function sumCheckCode(preCode: string) {
+export function sumCheckCode(preCode: string) {
   // const preCodeArr = preCode.split('');
 
   let total = 0;
